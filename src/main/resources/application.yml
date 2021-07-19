@@ -13,11 +13,7 @@ spring:
     password: test1
     initialization-mode: always
     initialize: true
-    data: classpath:category.sql, classpath:product.sql
-  jooq:
-    sql-dialect: h2     
-  
-
+    data: file:src/main/resources/category.sql, file:src/main/resources/product.sql
   h2:
     console:
       enabled: true
@@ -29,4 +25,3 @@ logging:
     level:
         org.springframework.web: DEBUG
         com: DEBUG
-        org.jooq.tools.LoggerListener: DEBUG

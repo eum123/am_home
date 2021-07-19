@@ -43,6 +43,14 @@ public class LRUCache<T> {
 		this.head.next = node;
 		nodeMap.put(node.key, node);
 	}
+	
+	public boolean containKey(long key) {
+		return nodeMap.containsKey(key);
+	}
+	
+	public int size() {
+		return nodeMap.size();
+	}
 
 	public T get(long key) {
 		if (!nodeMap.containsKey(key)) {

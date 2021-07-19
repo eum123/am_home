@@ -1,28 +1,27 @@
 package com.am.homework.cache.service;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.am.homework.cache.component.ProductCache;
-import com.am.homework.cache.entity.ProductEntity;
+import com.am.homework.cache.component.CacheComponent;
+import com.am.homework.cache.component.vo.Product;
 
-@Service("ProductService")
+@Service
 public class ProductService {
 
-    @Autowired
-    private ProductCache productCacheComponent;
+	@Autowired
+    private CacheComponent component;
 
-    public ProductEntity getProduct(long productId) {
+    public Product getProduct(long productId) {
 //        Optional<ProductEntity> product  = Optional.ofNullable(productCacheComponent.getProduct(productId));
 //        return product.orElse(null);
         
         return null;
     }
 
-    public List<ProductEntity> getProductListByCategoryId(int categoryId) {
+    public Map<Long, Product> getProductListByCategoryId(int categoryId) {
 //        return productCacheComponent.getProductByCategoryId(categoryId);
     	return null;
     }

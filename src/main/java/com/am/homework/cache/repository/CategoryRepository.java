@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.am.homework.cache.entity.CategoryEntity;
 
 @Repository
-public interface CategoryRepository extends JpaRepository<CategoryEntity, Long> {
-    CategoryEntity findByCategoryNo(int categoryNo);
+public interface CategoryRepository extends JpaRepository<CategoryEntity, Integer> {
+   
 }

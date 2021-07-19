@@ -1,42 +1,64 @@
 package com.am.homework.cache.component;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 import com.am.homework.cache.component.algorithm.LRUCache;
-import com.am.homework.cache.entity.ProductEntity;
-import com.google.common.collect.Sets;
+import com.am.homework.cache.component.vo.Product;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class ProductCache {
 	private final Lock lock = new ReentrantLock();
-	private LRUCache<ProductEntity> cache = new LRUCache<ProductEntity>(1000);
+	private Condition condition = lock.newCondition();
+	private boolean isUpdate = false;
 	
-	//카테고리별 상품 목록을 구하기 위함.
-	private Map<Integer, Set<Long>> categoryGroup = new HashMap();
+	private LRUCache<Product> cache = new LRUCache<Product>(1000);
+	
+	public boolean containProductNo(long productNo) {
+		return cache.containKey(productNo);
+	}
+	
+	public int size() {
+		return cache.size();
+	}
+	
+	public Product getProduct(long productNo) throws Exception {
+		lock.lock(); 
+		
+		try {
+			if(isUpdate) {
+				condition.await(1000, TimeUnit.SECONDS);
+			}
+			
+			return cache.get(productNo);
+		} finally {
+			lock.unlock();
+		}
+	}
 	
 	
-	private void set(ProductEntity entity) {
-		lock.lock(); // 어드민과 schedule에서 동시에 호출될 수 있어 동기화를 위해 사용한다.
+	/**
+	 * 상품 정보 저장.
+	 * @param entity
+	 */
+	public void set(Product entity) {
+		lock.lock(); 
 
         try {
         	
+        	isUpdate = true;
+        	
+        	log.debug("add Product : " + entity);
+        	
         	cache.put(entity.getProductNo(), entity);
-
-			Set<Long> group;
-			if (!categoryGroup.containsKey(entity.getCategoryNo())) {
-				group = new TreeSet<Long>();
-				categoryGroup.put(entity.getCategoryNo(), group);
-			}
-			group = categoryGroup.get(entity.getCategoryNo());
-			group.add(entity.getProductNo());
+			
         } finally {
+        	condition.signalAll();
         	lock.unlock();
         }
 	}

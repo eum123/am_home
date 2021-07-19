@@ -1,40 +1,34 @@
 package com.am.homework.cache.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Data
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+@Getter
 @Entity
 @NoArgsConstructor
 @Table(name = "category")
 public class CategoryEntity {
     @Id
-    @JsonIgnore
     @Column(name = "category_no")
-    private int categoryNo;
+    private Integer categoryNo;
 
-    @JsonProperty
-    @Column(name = "category_name")
+    @Column(name = "category_name", nullable = true)
     private String categoryName;
 
-    @JsonIgnore
-    @Column(name = "parent_no")
+    @Column(name = "parent_no", nullable = true)
     private Integer parentNo;
 
-    @JsonIgnore
     @Column
-    private int depth;
+    private Integer depth;
 
     @Builder
-    public CategoryEntity(int categoryNo, String categoryName, Integer parentNo, int depth) {
+    public CategoryEntity(Integer categoryNo, String categoryName, Integer parentNo, Integer depth) {
         this.categoryNo = categoryNo;
         this.categoryName = categoryName;
         this.parentNo = parentNo;
