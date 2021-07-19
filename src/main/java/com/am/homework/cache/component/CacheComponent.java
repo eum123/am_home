@@ -68,6 +68,12 @@ public class CacheComponent implements ApplicationListener<ContextRefreshedEvent
 		return list;
 	}
 	
+	/**
+	 * 상품정보를 구한다.
+	 * @param productNo
+	 * @return
+	 * @throws Exception
+	 */
 	public Optional<Product> getProduct(long productNo) throws Exception {
 		
 		if(productCache.containProductNo(productNo)) {
@@ -91,6 +97,16 @@ public class CacheComponent implements ApplicationListener<ContextRefreshedEvent
 				return Optional.of(product);
 			}
 			
+		}
+	}
+	/**
+	 * Admin에서 수정된 정보를 반영하기 위한 method
+	 * @param productNo
+	 */
+	public void updateProduct(long productNo) {
+		ProductEntity entity = productRepository.findById(productNo).orElse(null);
+		if(entity != null) {
+			productCache.update(ProductHelper.createByEntity(entity));
 		}
 	}
 	

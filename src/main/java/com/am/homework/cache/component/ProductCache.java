@@ -77,7 +77,7 @@ public class ProductCache {
         	cache.put(product.getProductNo(), product);
         	
         	//카테고리가 변경되었는지 확인한다.
-        	//categoryGroup에서 상품에 포함되어 있는 categoryNo를 구하여 동일하지 않으면 categoryGroup을 변경한다.
+        	//TODO:categoryGroup에서 상품에 포함되어 있는 categoryNo를 구하여 동일하지 않으면 categoryGroup을 변경한다.
         	
 			
         } finally {
