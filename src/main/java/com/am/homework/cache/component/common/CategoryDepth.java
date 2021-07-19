@@ -1,4 +1,4 @@
-package com.am.homework.cache.component;
+package com.am.homework.cache.component.common;
 
 public enum CategoryDepth {
 	FIRST(1),

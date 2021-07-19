@@ -1,16 +1,16 @@
 package com.am.homework.cache.component;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Order;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import com.am.homework.cache.component.util.CategoryHelper;
@@ -40,8 +40,32 @@ public class CacheComponent implements ApplicationListener<ContextRefreshedEvent
 		return categoryCache.getCache();
 	}
 	
+	
 	public int getProductSize() {
 		return productCache.size();
+	}
+	
+	/**
+	 * categoryNo에 해당하는 Product 목록.
+	 * @param categoryNo
+	 * @return
+	 * @throws Exception
+	 */
+	public List<Product> getProductList(int categoryNo) throws Exception {
+		List<Product> list = new ArrayList();
+		
+		productCache.getProductNoList(categoryNo).forEach(x -> {
+			try {
+				if(!getProduct(x).isEmpty()) {
+					list.add(getProduct(x).get());
+				}
+				
+			} catch (Exception e) {
+				throw new RuntimeException(e);
+			}
+		});
+		
+		return list;
 	}
 	
 	public Optional<Product> getProduct(long productNo) throws Exception {
@@ -62,7 +86,7 @@ public class CacheComponent implements ApplicationListener<ContextRefreshedEvent
 				Product product = ProductHelper.createByEntity(result.get());
 				
 				//update cache
-				productCache.set(product);
+				productCache.add(product);
 				
 				return Optional.of(product);
 			}
@@ -70,20 +94,32 @@ public class CacheComponent implements ApplicationListener<ContextRefreshedEvent
 		}
 	}
 	
+	private void updateAllProduct() {
+		productRepository.findAll().forEach(t -> {
+			this.productCache.add(ProductHelper.createByEntity(t));
+		});
+	}
+	private void updateAllCategoryGroup() {
+		categoryRepository.findAll(Sort.by(Order.asc("parentNo").nullsFirst()))
+		.forEach(t -> {
+			try {
+				this.categoryCache.setCache(CategoryHelper.createByEntity(t));
+			} catch (Exception e) {
+				throw new RuntimeException(e);
+			}
+		});
+	}
+	
 	@Override 
 	public void onApplicationEvent(ContextRefreshedEvent event) {
-		productRepository.findAll().forEach(t -> {
-			this.productCache.set(ProductHelper.createByEntity(t));
-		});
+		updateAllProduct();
 
-		categoryRepository.findAll(Sort.by(Order.asc("parentNo").nullsFirst()))
-				.forEach(t -> {
-					try {
-						this.categoryCache.setCache(CategoryHelper.createByEntity(t));
-					} catch (Exception e) {
-						throw new RuntimeException(e);
-					}
-				});
+		updateAllCategoryGroup();
     }
+	
+	@Scheduled(fixedDelay = 5000)
+	public void updateAll() {
+		// 테이블에 update 날짜를 추가 하여 변경된 데이터만 갱신한다.
+	}
 
 }

@@ -20,7 +20,7 @@ public class Category {
 	@JsonProperty
 	private int depth;
 	@JsonProperty
-	private Map<Integer, Category> subCategory = new HashMap();
+	private Map<Integer, Category> subCategory = new HashMap<>();
 
 	@Builder
 	public Category(int categoryNo, String categoryName, Integer parentNo, int depth,

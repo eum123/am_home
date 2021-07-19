@@ -3,6 +3,8 @@ package com.am.homework.cache.component.algorithm;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.am.homework.cache.component.common.UpdateCheckHandler;
+
 /**
  * LRUCache
  *
@@ -11,8 +13,10 @@ import java.util.Map;
  * 			효율적인 메모리 관리를 위해 LRU 알고리즘이 최선의 알고리즘이라고 생각합니다.
  *          
  */
+
 public class LRUCache<T> {
 
+	
 	private Map<Long, ListNode> nodeMap;
 
 	private int capacity;
@@ -20,7 +24,7 @@ public class LRUCache<T> {
 	private ListNode head;
 
 	private ListNode tail;
-
+	
 	public LRUCache(int capacity) {
 		this.nodeMap = new HashMap();
 		this.capacity = capacity;
@@ -34,6 +38,7 @@ public class LRUCache<T> {
 		node.prev.next = node.next;
 		node.next.prev = node.prev;
 		nodeMap.remove(node.key);
+		
 	}
 
 	private void insertToHead(ListNode node) {

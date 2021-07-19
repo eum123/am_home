@@ -8,6 +8,7 @@ import javax.persistence.Table;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
 @Entity
@@ -18,6 +19,7 @@ public class CategoryEntity {
     @Column(name = "category_no")
     private Integer categoryNo;
 
+    @Setter
     @Column(name = "category_name", nullable = true)
     private String categoryName;
 

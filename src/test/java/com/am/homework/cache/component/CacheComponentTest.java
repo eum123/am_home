@@ -32,5 +32,11 @@ public class CacheComponentTest {
 		assertEquals(component.getCategoryList().get(2).getSubCategory().size(), 2);
 		
 		assertEquals(component.getProductSize(), 1000);
+		
+	}
+	
+	@Test
+	public void categoryGroup() throws Exception {
+		assertEquals(component.getProductList(1).size(), 100);
 	}
 }

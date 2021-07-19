@@ -8,9 +8,6 @@ import org.springframework.stereotype.Service;
 import com.am.homework.cache.component.CacheComponent;
 import com.am.homework.cache.component.vo.Category;
 
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
 @Service
 public class CategoryService {
 

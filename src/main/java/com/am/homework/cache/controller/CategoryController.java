@@ -16,27 +16,24 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
-import lombok.extern.slf4j.Slf4j;
 
 @RestController
-@Slf4j
 @Api("카테고리 API")
 @RequestMapping("/category")
 public class CategoryController {
 
-    @Autowired
-    private CategoryService categoryService;
+	@Autowired
+	private CategoryService categoryService;
 
-    /**
-     * category list 조회.
-     * @return
-     */
-    @ApiResponses(value = {
-        @ApiResponse(code = 200, message = "Success", response = Category.class)
-    })
-    @ApiOperation(value = "카테고리 리스트 조회")
-    @GetMapping(value="list")
-    public ResponseEntity<Map<Integer, Category>> getCategoryList() {
-        return new ResponseEntity<Map<Integer, Category>>(categoryService.getCategoryList(), HttpStatus.OK);
-    }
+	/**
+	 * category list 조회.
+	 * 
+	 * @return
+	 */
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Success", response = Category.class) })
+	@ApiOperation(value = "카테고리 리스트 조회")
+	@GetMapping(value = "list")
+	public ResponseEntity<Map<Integer, Category>> getCategoryList() {
+		return new ResponseEntity<Map<Integer, Category>>(categoryService.getCategoryList(), HttpStatus.OK);
+	}
 }

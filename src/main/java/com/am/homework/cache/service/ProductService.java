@@ -1,6 +1,6 @@
 package com.am.homework.cache.service;
 
-import java.util.Map;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,15 +14,12 @@ public class ProductService {
 	@Autowired
     private CacheComponent component;
 
-    public Product getProduct(long productId) {
-//        Optional<ProductEntity> product  = Optional.ofNullable(productCacheComponent.getProduct(productId));
-//        return product.orElse(null);
-        
-        return null;
+    public Product getProductByProductId(long productId) throws Exception {
+    	return component.getProduct(productId).orElse(null);
+       
     }
 
-    public Map<Long, Product> getProductListByCategoryId(int categoryId) {
-//        return productCacheComponent.getProductByCategoryId(categoryId);
-    	return null;
+    public List<Product> getProductListByCategoryId(int categoryNo) throws Exception {
+    	return component.getProductList(categoryNo);
     }
 }

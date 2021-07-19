@@ -3,6 +3,7 @@ package com.am.homework.cache.component;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.am.homework.cache.component.common.CategoryDepth;
 import com.am.homework.cache.component.vo.Category;
 
 import lombok.Getter;
@@ -22,7 +23,7 @@ public class CategoryCache {
 	 */
 	public void setCache(Category entity) throws Exception {
 		
-		log.debug("add category : " + entity);
+		log.debug("add category : {}", entity);
 		
 		if(CategoryDepth.FIRST.equals(entity.getDepth())) {
 			//first depth
