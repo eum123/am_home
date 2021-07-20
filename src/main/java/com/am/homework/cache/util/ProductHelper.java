@@ -18,4 +18,15 @@ public class ProductHelper {
 				.productPrice(entity.getProductPrice())
 				.build();
 	}
+	
+	public static ProductEntity createByProduct(Product product) {
+
+		return ProductEntity.builder()
+				.brandName(product.getBrandName())
+				.categoryNo(product.getCategoryNo())
+				.productName(product.getProductName())
+				.productNo(product.getProductNo())
+				.productPrice(product.getProductPrice())
+				.build();
+	}
 }

@@ -1,12 +1,10 @@
 package com.am.homework.admin.service;
 
-import java.math.BigDecimal;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.ObjectUtils;
 
+import com.am.homework.cache.common.ExternalInvokeException;
 import com.am.homework.cache.entity.CategoryEntity;
 import com.am.homework.cache.entity.ProductEntity;
 import com.am.homework.cache.repository.CategoryRepository;
@@ -32,7 +30,7 @@ public class AdminService {
 	private ProductRepository productRepository;
 
 	@Transactional(rollbackFor = Exception.class)
-	public Category updateCategoryName(int categoryNo, String categoryName) throws Exception {
+	public Category updateCategoryName(int categoryNo, String categoryName) throws ExternalInvokeException {
 
 		CategoryEntity categoryEntity = categoryRepository.findById(categoryNo).orElse(null);
 
@@ -42,14 +40,31 @@ public class AdminService {
 		}
 
 		// sync cache
-		externalService.syncCategory(categoryNo);
+		externalService.syncCategory("UPDATE", categoryNo);
 
 		log.info("edit category : {}", categoryEntity);
 		return CategoryHelper.createByEntity(categoryEntity);
 	}
+	
+	@Transactional(rollbackFor = Exception.class)
+	public Category removeCategory(int categoryNo) throws ExternalInvokeException {
+
+		CategoryEntity categoryEntity = categoryRepository.findById(categoryNo).orElse(null);
+
+		if (categoryEntity != null) {
+			categoryRepository.delete(categoryEntity);
+		}
+
+		// sync cache
+		externalService.syncCategory("UPDATE", categoryNo);
+
+		log.info("edit category : {}", categoryEntity);
+		return CategoryHelper.createByEntity(categoryEntity);
+	}
+	
 
 	@Transactional(rollbackFor = Exception.class)
-	public Product updateProduct(long productNo, Product product) throws Exception {
+	public Product updateProduct(long productNo, Product product) throws ExternalInvokeException {
 		ProductEntity productEntity = productRepository.findById(productNo).orElse(null);
 
 		if (productEntity != null) {
@@ -64,11 +79,55 @@ public class AdminService {
 			productRepository.save(productEntity);
 
 			// sync cache
-			externalService.syncProduct(productNo);
+			externalService.syncProduct("UPDATE", productNo);
 
 			log.info("edit product : {}", productEntity);
+			
+			return ProductHelper.createByEntity(productEntity);
+		} else {
+			
+			log.info("업데이트 할 수 없음. : {}", productEntity);
+			
+			return null;
 		}
+	}
+	
+	@Transactional(rollbackFor = Exception.class)
+	public Product insertProduct(long productNo, Product product) throws ExternalInvokeException {
+		ProductEntity productEntity = productRepository.findById(productNo).orElse(null);
 
-		return ProductHelper.createByEntity(productEntity);
+		if (productEntity == null) {
+			//insert
+			ProductEntity newEntity = ProductHelper.createByProduct(product);
+			productRepository.save(newEntity);
+			
+			log.info("insert product : {}", productEntity);
+			
+			return ProductHelper.createByEntity(productEntity);
+		} else {
+			log.info("추가 할 수 없음. : {}", productEntity);
+			
+			return null;
+		}
+	}
+	
+	@Transactional(rollbackFor = Exception.class)
+	public Product removeProduct(long productNo) throws ExternalInvokeException {
+		ProductEntity productEntity = productRepository.findById(productNo).orElse(null);
+
+		if (productEntity != null) {
+			
+			productRepository.delete(productEntity);
+
+			// sync cache
+			externalService.syncProduct("REMOVE", productNo);
+
+			log.info("remove product : {}", productEntity);
+			
+			return ProductHelper.createByEntity(productEntity);
+		}
+		
+		return null;
+		
 	}
 }

@@ -15,8 +15,9 @@ import com.am.homework.cache.util.CategoryHelper;
 import com.am.homework.cache.vo.Category;
 import com.sun.istack.NotNull;
 
-import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service
 public class CategoryService implements ApplicationListener<ContextRefreshedEvent> {
 
@@ -60,7 +61,9 @@ public class CategoryService implements ApplicationListener<ContextRefreshedEven
 		});
 	}
     
-	@Scheduled(fixedDelay = 5000)
+    /**
+     * 전체 데이터 reset.
+     */
 	public void resetAll() {
 		// 테이블에 update 날짜를 추가 하여 변경된 데이터만 갱신한다.
 		//아래는 전체 변경으로 적용함.

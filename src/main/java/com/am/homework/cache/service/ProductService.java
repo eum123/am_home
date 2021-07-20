@@ -7,7 +7,6 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import com.am.homework.cache.entity.ProductEntity;
@@ -16,6 +15,9 @@ import com.am.homework.cache.util.ProductHelper;
 import com.am.homework.cache.vo.Product;
 import com.sun.istack.NotNull;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 public class ProductService implements ApplicationListener<ContextRefreshedEvent> {
 	
@@ -95,7 +97,6 @@ public class ProductService implements ApplicationListener<ContextRefreshedEvent
 		return null;
     }
     
-    
     @Override 
 	public void onApplicationEvent(ContextRefreshedEvent event) {
 		updateAllProduct();
@@ -106,8 +107,10 @@ public class ProductService implements ApplicationListener<ContextRefreshedEvent
 			this.productCache.add(ProductHelper.createByEntity(t));
 		});
 	}
-	
-	@Scheduled(fixedDelay = 5000)
+    
+    /**
+     * 전체 데이터 reset.
+     */
 	public void resetAll() {
 		// 테이블에 update 날짜를 추가 하여 변경된 데이터만 갱신한다.
 		//아래는 전체 변경으로 적용함.

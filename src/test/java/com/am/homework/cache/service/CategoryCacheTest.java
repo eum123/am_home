@@ -1,4 +1,4 @@
-package com.am.homework.cache.component;
+package com.am.homework.cache.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

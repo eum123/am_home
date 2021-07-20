@@ -2,6 +2,8 @@ package com.am.homework.admin.service;
 
 import org.springframework.stereotype.Service;
 
+import com.am.homework.cache.common.ExternalInvokeException;
+
 @Service
 public class ExternalService {
 	/**
@@ -9,7 +11,7 @@ public class ExternalService {
 	 * @param categoryNo
 	 * @throws Exception
 	 */
-	public void syncCategory(Integer categoryNo) throws Exception {
+	public void syncCategory(String command, Integer categoryNo) throws ExternalInvokeException {
 		//TODO : HTTP 호출을 통해 category cache값을 업데이트 한다.
 	}
 	
@@ -18,7 +20,7 @@ public class ExternalService {
 	 * @param productNo
 	 * @throws Exception
 	 */
-	public void syncProduct(Long productNo) throws Exception {
+	public void syncProduct(String command, Long productNo) throws ExternalInvokeException {
 		//TODO : HTTP 호출을 통해 product cache값을 업데이트 한다.
 	}
 }
