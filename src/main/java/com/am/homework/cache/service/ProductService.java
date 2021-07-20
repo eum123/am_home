@@ -14,12 +14,14 @@ import com.am.homework.cache.entity.ProductEntity;
 import com.am.homework.cache.repository.ProductRepository;
 import com.am.homework.cache.util.ProductHelper;
 import com.am.homework.cache.vo.Product;
+import com.sun.istack.NotNull;
 
 @Service
 public class ProductService implements ApplicationListener<ContextRefreshedEvent> {
 	
 	private ProductCache productCache = new ProductCache();
-	
+
+	@NotNull
 	@Autowired
 	private ProductRepository productRepository;
 	
@@ -29,7 +31,7 @@ public class ProductService implements ApplicationListener<ContextRefreshedEvent
 	 * @return
 	 * @throws Exception
 	 */
-    public Product getProductByProductId(long productNo) throws Exception {
+    public Product getProductByProductId(long productNo) throws InterruptedException {
     	if(productCache.containProductNo(productNo)) {
 			return productCache.getProduct(productNo);
 			

@@ -13,12 +13,16 @@ import org.springframework.stereotype.Service;
 import com.am.homework.cache.repository.CategoryRepository;
 import com.am.homework.cache.util.CategoryHelper;
 import com.am.homework.cache.vo.Category;
+import com.sun.istack.NotNull;
+
+import lombok.RequiredArgsConstructor;
 
 @Service
 public class CategoryService implements ApplicationListener<ContextRefreshedEvent> {
 
 	private CategoryCache categoryCache = new CategoryCache();
 	
+	@NotNull
 	@Autowired
 	private CategoryRepository categoryRepository;
 	

@@ -32,7 +32,7 @@ public class ProductCache {
 		return cache.size();
 	}
 	
-	public Product getProduct(long productNo) throws Exception {
+	public Product getProduct(long productNo) throws InterruptedException {
 		lock.lock(); 
 		
 		try {

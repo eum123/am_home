@@ -24,7 +24,7 @@ public class ProductServiceTest {
 	
 	
 	@Test
-	public void getProductByProductIdTest() throws Exception {
+	public void getroductByProductIdTest() throws Exception {
 		
 		Product cache = service.getProductByProductId(1L);
 		ProductEntity db = repository.findById(1L).get();

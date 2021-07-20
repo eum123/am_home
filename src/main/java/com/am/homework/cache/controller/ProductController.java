@@ -37,7 +37,7 @@ public class ProductController {
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Success", response = Product.class) })
 	@ApiOperation(value = "상품 조회")
 	@GetMapping(value = "/{productNo}")
-	public ResponseEntity<Product> getProduct(@PathVariable("productNo") long productNo) throws Exception {
+	public ResponseEntity<Product> getProduct(@PathVariable("productNo") long productNo) throws InterruptedException {
 		Product product = service.getProductByProductId(productNo);
 
 		if (product == null) {
