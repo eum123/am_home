@@ -7,14 +7,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 
-import com.am.homework.cache.component.util.CategoryHelper;
-import com.am.homework.cache.component.util.ProductHelper;
-import com.am.homework.cache.component.vo.Category;
-import com.am.homework.cache.component.vo.Product;
 import com.am.homework.cache.entity.CategoryEntity;
 import com.am.homework.cache.entity.ProductEntity;
 import com.am.homework.cache.repository.CategoryRepository;
 import com.am.homework.cache.repository.ProductRepository;
+import com.am.homework.cache.util.CategoryHelper;
+import com.am.homework.cache.util.ProductHelper;
+import com.am.homework.cache.vo.Category;
+import com.am.homework.cache.vo.Product;
 
 import lombok.extern.slf4j.Slf4j;
 

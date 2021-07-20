@@ -1,4 +1,4 @@
-package com.am.homework.cache.component;
+package com.am.homework.cache.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,8 +9,8 @@ import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-import com.am.homework.cache.component.algorithm.LRUCache;
-import com.am.homework.cache.component.vo.Product;
+import com.am.homework.cache.common.algorithm.LRUCache;
+import com.am.homework.cache.vo.Product;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -116,5 +116,29 @@ public class ProductCache {
         	condition.signalAll();
         	lock.unlock();
         }
+	}
+	
+	/**
+	 * 초기
+	 */
+	public void reset() {
+		
+		lock.lock(); 
+
+        try {
+        	
+        	isUpdate = true;
+        	
+        	log.debug("reset ProductCache");
+        	
+        	categoryGroup.clear();
+        	cache = new LRUCache<Product>(1000);
+			
+        } finally {
+        	isUpdate = false;
+        	condition.signalAll();
+        	lock.unlock();
+        }
+		
 	}
 }

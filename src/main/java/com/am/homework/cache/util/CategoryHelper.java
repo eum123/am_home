@@ -1,8 +1,12 @@
-package com.am.homework.cache.component.util;
+package com.am.homework.cache.util;
 
-import com.am.homework.cache.component.vo.Category;
 import com.am.homework.cache.entity.CategoryEntity;
+import com.am.homework.cache.vo.Category;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class CategoryHelper {
 	/**
 	 * categoryentity를 category 로 변환.

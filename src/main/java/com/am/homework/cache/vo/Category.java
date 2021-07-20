@@ -1,4 +1,4 @@
-package com.am.homework.cache.component.vo;
+package com.am.homework.cache.vo;
 
 import java.util.HashMap;
 import java.util.Map;

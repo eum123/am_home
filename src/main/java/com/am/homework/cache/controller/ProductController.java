@@ -7,12 +7,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.am.homework.cache.component.vo.Product;
 import com.am.homework.cache.service.ProductService;
+import com.am.homework.cache.vo.Product;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -64,5 +65,13 @@ public class ProductController {
 		}
 
 		return new ResponseEntity<>(list, HttpStatus.OK);
+	}
+	
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Success", response = Product.class) })
+	@ApiOperation(value = "상품 정보를 update.")
+	@PatchMapping(value = "update/{productNo}")
+	public ResponseEntity<Product> updateProduct(@PathVariable("productNo") long productNo) throws Exception {
+
+		return new ResponseEntity<Product>(service.updateProduct(productNo), HttpStatus.OK);
 	}
 }

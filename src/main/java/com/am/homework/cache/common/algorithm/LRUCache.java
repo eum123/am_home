@@ -1,9 +1,9 @@
-package com.am.homework.cache.component.algorithm;
+package com.am.homework.cache.common.algorithm;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import com.am.homework.cache.component.common.UpdateCheckHandler;
+import com.am.homework.cache.common.UpdateCheckHandler;
 
 /**
  * LRUCache

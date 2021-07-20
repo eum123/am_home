@@ -1,8 +1,12 @@
-package com.am.homework.cache.component.util;
+package com.am.homework.cache.util;
 
-import com.am.homework.cache.component.vo.Product;
 import com.am.homework.cache.entity.ProductEntity;
+import com.am.homework.cache.vo.Product;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ProductHelper {
 	public static Product createByEntity(ProductEntity entity) {
 
@@ -11,6 +15,7 @@ public class ProductHelper {
 				.categoryNo(entity.getCategoryNo())
 				.productName(entity.getProductName())
 				.productNo(entity.getProductNo())
+				.productPrice(entity.getProductPrice())
 				.build();
 	}
 }

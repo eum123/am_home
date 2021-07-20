@@ -11,14 +11,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.am.homework.admin.service.AdminService;
-import com.am.homework.cache.component.vo.Category;
-import com.am.homework.cache.component.vo.Product;
+import com.am.homework.cache.vo.Category;
+import com.am.homework.cache.vo.Product;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
+/**
+ * 관리용.
+ * @author a28097823
+ *
+ */
 @RestController
 @Api("admin API")
 @RequestMapping("/admin")

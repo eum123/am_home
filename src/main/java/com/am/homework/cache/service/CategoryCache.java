@@ -1,10 +1,10 @@
-package com.am.homework.cache.component;
+package com.am.homework.cache.service;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import com.am.homework.cache.component.common.CategoryDepth;
-import com.am.homework.cache.component.vo.Category;
+import com.am.homework.cache.common.CategoryDepth;
+import com.am.homework.cache.vo.Category;
 
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -48,5 +48,9 @@ public class CategoryCache {
 		}
 		
 		
+	}
+	
+	public void reset() {
+		cache.clear();
 	}
 }
