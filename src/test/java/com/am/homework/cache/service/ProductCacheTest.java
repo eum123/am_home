@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 
 import org.junit.jupiter.api.Test;
 
-import com.am.homework.cache.vo.Product;
+import com.am.homework.cache.model.Product;
 
 public class ProductCacheTest {
 	

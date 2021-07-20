@@ -2,30 +2,25 @@ package com.am.homework.cache.service;
 
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Order;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import com.am.homework.cache.model.Category;
 import com.am.homework.cache.repository.CategoryRepository;
 import com.am.homework.cache.util.CategoryHelper;
-import com.am.homework.cache.vo.Category;
-import com.sun.istack.NotNull;
 
-import lombok.extern.slf4j.Slf4j;
+import lombok.RequiredArgsConstructor;
 
-@Slf4j
 @Service
+@RequiredArgsConstructor
 public class CategoryService implements ApplicationListener<ContextRefreshedEvent> {
 
 	private CategoryCache categoryCache = new CategoryCache();
 	
-	@NotNull
-	@Autowired
-	private CategoryRepository categoryRepository;
+	private final CategoryRepository categoryRepository;
 	
     /**
      * category 전체 목록.

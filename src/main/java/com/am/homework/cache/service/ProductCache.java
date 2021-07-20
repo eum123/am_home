@@ -10,7 +10,7 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 import com.am.homework.cache.common.algorithm.LRUCache;
-import com.am.homework.cache.vo.Product;
+import com.am.homework.cache.model.Product;
 
 import lombok.extern.slf4j.Slf4j;
 

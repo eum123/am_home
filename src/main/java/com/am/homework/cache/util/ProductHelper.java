@@ -1,7 +1,7 @@
 package com.am.homework.cache.util;
 
 import com.am.homework.cache.entity.ProductEntity;
-import com.am.homework.cache.vo.Product;
+import com.am.homework.cache.model.Product;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;

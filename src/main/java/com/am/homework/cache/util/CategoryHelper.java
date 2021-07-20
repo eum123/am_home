@@ -1,7 +1,7 @@
 package com.am.homework.cache.util;
 
 import com.am.homework.cache.entity.CategoryEntity;
-import com.am.homework.cache.vo.Category;
+import com.am.homework.cache.model.Category;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;

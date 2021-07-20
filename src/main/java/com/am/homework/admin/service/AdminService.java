@@ -1,33 +1,31 @@
 package com.am.homework.admin.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.am.homework.cache.common.ExternalInvokeException;
 import com.am.homework.cache.entity.CategoryEntity;
 import com.am.homework.cache.entity.ProductEntity;
+import com.am.homework.cache.model.Category;
+import com.am.homework.cache.model.Product;
 import com.am.homework.cache.repository.CategoryRepository;
 import com.am.homework.cache.repository.ProductRepository;
 import com.am.homework.cache.util.CategoryHelper;
 import com.am.homework.cache.util.ProductHelper;
-import com.am.homework.cache.vo.Category;
-import com.am.homework.cache.vo.Product;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class AdminService {
 
-	@Autowired
-	private ExternalService externalService;
+	private final ExternalService externalService;
 
-	@Autowired
-	private CategoryRepository categoryRepository;
+	private final CategoryRepository categoryRepository;
 
-	@Autowired
-	private ProductRepository productRepository;
+	private final ProductRepository productRepository;
 
 	@Transactional(rollbackFor = Exception.class)
 	public Category updateCategoryName(int categoryNo, String categoryName) throws ExternalInvokeException {

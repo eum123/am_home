@@ -4,28 +4,24 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Service;
 
 import com.am.homework.cache.entity.ProductEntity;
+import com.am.homework.cache.model.Product;
 import com.am.homework.cache.repository.ProductRepository;
 import com.am.homework.cache.util.ProductHelper;
-import com.am.homework.cache.vo.Product;
-import com.sun.istack.NotNull;
 
-import lombok.extern.slf4j.Slf4j;
+import lombok.RequiredArgsConstructor;
 
-@Slf4j
 @Service
+@RequiredArgsConstructor
 public class ProductService implements ApplicationListener<ContextRefreshedEvent> {
 	
 	private ProductCache productCache = new ProductCache();
 
-	@NotNull
-	@Autowired
-	private ProductRepository productRepository;
+	private final ProductRepository productRepository;
 	
 	/**
 	 * 상품 정보 조회.

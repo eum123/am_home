@@ -9,17 +9,19 @@ import java.math.BigDecimal;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.TestConstructor;
 import org.springframework.test.context.jdbc.Sql;
 
 import com.am.homework.cache.common.ExternalInvokeException;
 import com.am.homework.cache.entity.CategoryEntity;
 import com.am.homework.cache.entity.ProductEntity;
+import com.am.homework.cache.model.Product;
 import com.am.homework.cache.repository.CategoryRepository;
 import com.am.homework.cache.repository.ProductRepository;
-import com.am.homework.cache.vo.Product;
 
 @SpringBootTest
 @Sql(scripts = {"file:src/main/resources/product.sql", "file:src/main/resources/category.sql"})
+@TestConstructor(autowireMode = TestConstructor.AutowireMode.ALL)
 public class AdminServiceTest {
 	@Autowired
 	private ProductRepository productRepository;

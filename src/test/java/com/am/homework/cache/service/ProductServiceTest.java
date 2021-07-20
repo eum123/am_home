@@ -7,14 +7,16 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.TestConstructor;
 import org.springframework.test.context.jdbc.Sql;
 
 import com.am.homework.cache.entity.ProductEntity;
+import com.am.homework.cache.model.Product;
 import com.am.homework.cache.repository.ProductRepository;
-import com.am.homework.cache.vo.Product;
 
 @SpringBootTest
 @Sql(scripts = {"file:src/main/resources/product.sql"})
+@TestConstructor(autowireMode = TestConstructor.AutowireMode.ALL)
 public class ProductServiceTest {
 	@Autowired
 	private ProductRepository repository;

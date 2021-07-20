@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.am.homework.cache.common.CategoryDepth;
-import com.am.homework.cache.vo.Category;
+import com.am.homework.cache.model.Category;
 
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;

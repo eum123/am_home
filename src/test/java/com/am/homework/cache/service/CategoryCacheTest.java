@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
 import com.am.homework.cache.entity.CategoryEntity;
+import com.am.homework.cache.model.Category;
 import com.am.homework.cache.service.CategoryCache;
-import com.am.homework.cache.vo.Category;
 
 public class CategoryCacheTest {
 	@Test

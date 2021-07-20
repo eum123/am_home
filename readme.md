@@ -1,6 +1,6 @@
 # 작업 환경
 - 사용언어 : Java11
-- 프레임워크 : spring boot2
+- 프레임워크 : spring boot2, maven
 - DB : H2 
 - IDE : STS
 - api document : Swagger
@@ -16,8 +16,8 @@
 - 특정 카테고리에 해당하는 상품 목록 조회 : /product/category/{categoryNo}
 
 ### admin
-- 카테고리 명 변경 : /admin/category/{categoryNo}
-- 상품 정보 변경 : /admin/product/{productNo}
+- 카테고리 명 변경 : /admin/category/update/{categoryNo}
+- 상품 정보 변경 : /admin/product/update/{productNo}
 
 # 기타. 
 

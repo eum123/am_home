@@ -11,21 +11,23 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.am.homework.admin.service.AdminService;
+import com.am.homework.cache.model.Category;
 import com.am.homework.cache.service.CategoryService;
-import com.am.homework.cache.vo.Category;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import lombok.RequiredArgsConstructor;
 
 @RestController
 @Api("카테고리 API")
+@RequiredArgsConstructor
 @RequestMapping("/category")
 public class CategoryController {
 
-	@Autowired
-	private CategoryService categoryService;
+	private final CategoryService categoryService;
 
 	/**
 	 * category list 조회.

@@ -1,6 +1,5 @@
 package com.am.homework.admin.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -14,13 +13,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.am.homework.admin.service.AdminService;
 import com.am.homework.cache.common.ExternalInvokeException;
-import com.am.homework.cache.vo.Category;
-import com.am.homework.cache.vo.Product;
+import com.am.homework.cache.model.Category;
+import com.am.homework.cache.model.Product;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import lombok.RequiredArgsConstructor;
 
 /**
  * 관리용.
@@ -30,10 +30,10 @@ import io.swagger.annotations.ApiResponses;
 @RestController
 @Api("admin API")
 @RequestMapping("/admin")
+@RequiredArgsConstructor
 public class AdminController {
 
-	@Autowired
-	private AdminService service;
+	private final AdminService service;
 
 	/**
 	 * 카테고리명 변경
@@ -43,7 +43,7 @@ public class AdminController {
 	 */
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Success") })
 	@ApiOperation(value = "카테고리명 변경")
-	@PatchMapping(value = "/category/{categoryNo}")
+	@PatchMapping(value = "/category/update/{categoryNo}")
 	public ResponseEntity<Category> updateCategoryName(@PathVariable("categoryNo") int categoryNo,
 			@RequestBody String categoryName) throws ExternalInvokeException {
 
