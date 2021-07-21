@@ -19,7 +19,7 @@ import com.am.homework.cache.repository.CategoryRepository;
 @SpringBootTest
 @Sql(scripts = {"file:src/main/resources/category.sql"})
 @TestConstructor(autowireMode = TestConstructor.AutowireMode.ALL)
-public class CategoryServiceTest {
+class CategoryServiceTest {
 
 	@Autowired
 	private CategoryRepository repository;
@@ -29,7 +29,7 @@ public class CategoryServiceTest {
 	
 	
 	@Test
-	public void categoryListCountTest() throws Exception {
+	void categoryListCountTest() throws Exception {
 		
 		assertEquals(service.getCategoryList().size(), repository.countByDepth(1));
 		
@@ -43,7 +43,7 @@ public class CategoryServiceTest {
 	}
 	
 	@Test
-	public void ctegoryContentTest() throws Exception {
+	void ctegoryContentTest() throws Exception {
 		
 		List<CategoryEntity> dbList = repository.findAllByParentNo(2);
 		Map<Integer, Category> cacheList = service.getCategoryList().get(2).getSubCategory();

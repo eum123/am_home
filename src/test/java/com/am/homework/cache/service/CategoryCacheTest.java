@@ -8,9 +8,9 @@ import com.am.homework.cache.entity.CategoryEntity;
 import com.am.homework.cache.model.Category;
 import com.am.homework.cache.service.CategoryCache;
 
-public class CategoryCacheTest {
+class CategoryCacheTest {
 	@Test
-	public void test() throws Exception {
+	void test() throws Exception {
 		CategoryCache cache = new CategoryCache();
 		
 		cache.setCache(Category.builder().categoryName("categoryName1")
@@ -24,7 +24,7 @@ public class CategoryCacheTest {
 	}
 	
 	@Test
-	public void saveSub() throws Exception {
+	void saveSub() throws Exception {
 		CategoryCache cache = new CategoryCache();
 		
 		cache.setCache(Category.builder().categoryName("categoryName1")

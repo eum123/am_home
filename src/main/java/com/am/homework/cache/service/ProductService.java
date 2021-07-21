@@ -60,7 +60,7 @@ public class ProductService implements ApplicationListener<ContextRefreshedEvent
      * @throws Exception
      */
     public List<Product> getProductListByCategoryId(int categoryNo) throws Exception {
-    	List<Product> list = new ArrayList();
+    	List<Product> list = new ArrayList<>();
 		
 		productCache.getProductNoList(categoryNo).forEach(x -> {
 			try {

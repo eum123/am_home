@@ -14,6 +14,9 @@ public class CategoryHelper {
 	 * @return
 	 */
 	public static Category createByEntity(CategoryEntity entity) {
+		if(entity == null) {
+			return null;
+		}
 		
 		return Category.builder().categoryName(entity.getCategoryName())
 				.categoryNo(entity.getCategoryNo())

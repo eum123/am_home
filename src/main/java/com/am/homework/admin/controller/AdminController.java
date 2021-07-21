@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.am.homework.admin.service.AdminService;
-import com.am.homework.cache.common.ExternalInvokeException;
 import com.am.homework.cache.model.Category;
 import com.am.homework.cache.model.Product;
+import com.am.homework.common.ExternalInvokeException;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -43,7 +43,7 @@ public class AdminController {
 	 */
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Success") })
 	@ApiOperation(value = "카테고리명 변경")
-	@PatchMapping(value = "/category/update/{categoryNo}")
+	@PatchMapping(value = "/category/edit/{categoryNo}")
 	public ResponseEntity<Category> updateCategoryName(@PathVariable("categoryNo") int categoryNo,
 			@RequestBody String categoryName) throws ExternalInvokeException {
 
@@ -63,7 +63,7 @@ public class AdminController {
 	 */
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Success") })
 	@ApiOperation(value = "상품 변경")
-	@PatchMapping(value = "/product/update/{productNo}", produces = { MediaType.APPLICATION_JSON_VALUE })
+	@PatchMapping(value = "/product/edit/{productNo}", produces = { MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<Product> updateProduct(@PathVariable("productNo") int productNo, @RequestBody Product product)
 			throws ExternalInvokeException {
 
@@ -103,7 +103,7 @@ public class AdminController {
 	 */
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Success") })
 	@ApiOperation(value = "상품 추가.")
-	@PutMapping(value = "/product/insert/{productNo}", produces = { MediaType.APPLICATION_JSON_VALUE })
+	@PutMapping(value = "/product/add/{productNo}", produces = { MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<Product> insertProduct(@PathVariable("productNo") int productNo, @RequestBody Product product)
 			throws ExternalInvokeException {
 

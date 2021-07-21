@@ -13,8 +13,4 @@ public enum CategoryDepth {
 	public int getCode() {
 		return this.code;
 	}
-	
-	public boolean equals(int depth) {
-		return this.code == depth;
-	}
 }
