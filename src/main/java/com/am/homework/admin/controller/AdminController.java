@@ -44,7 +44,7 @@ public class AdminController {
 	 */
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Success") })
 	@ApiOperation(value = "카테고리명 변경")
-	@PatchMapping(value = "/category/edit/{categoryNo}")
+	@PatchMapping(value = "/category/{categoryNo}")
 	public ResponseEntity<Category> updateCategoryName(@PathVariable("categoryNo") int categoryNo,
 			@RequestBody String categoryName) throws ExternalInvokeException {
 
@@ -64,7 +64,7 @@ public class AdminController {
 	 */
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Success") })
 	@ApiOperation(value = "상품 변경")
-	@PatchMapping(value = "/product/edit/{productNo}", produces = { MediaType.APPLICATION_JSON_VALUE })
+	@PatchMapping(value = "/product/{productNo}", produces = { MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<Product> updateProduct(@PathVariable("productNo") int productNo, @RequestBody Product product)
 			throws ExternalInvokeException {
 
@@ -84,7 +84,7 @@ public class AdminController {
 	 */
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Success") })
 	@ApiOperation(value = "상품 삭제")
-	@DeleteMapping(value = "/product/remove/{productNo}", produces = { MediaType.APPLICATION_JSON_VALUE })
+	@DeleteMapping(value = "/product/{productNo}", produces = { MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<Product> removeProduct(@PathVariable("productNo") int productNo)
 			throws ExternalInvokeException {
 
@@ -104,7 +104,7 @@ public class AdminController {
 	 */
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Success") })
 	@ApiOperation(value = "상품 추가.")
-	@PutMapping(value = "/product/add/{productNo}", produces = { MediaType.APPLICATION_JSON_VALUE })
+	@PutMapping(value = "/product/{productNo}", produces = { MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<Product> insertProduct(@PathVariable("productNo") int productNo,
 			@RequestBody Product product) {
 

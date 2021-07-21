@@ -16,8 +16,8 @@
 - 특정 카테고리에 해당하는 상품 목록 조회 : /product/category/{categoryNo}
 
 ### admin
-- 카테고리 명 변경 : /admin/category/edit/{categoryNo}
-- 상품 정보 변경 : /admin/product/edit/{productNo}
+- 카테고리 명 변경 : /admin/category/{categoryNo}
+- 상품 정보 변경 : /admin/product/{productNo}
 
 # 특이사항
  - admin에서 DB 변경시 externalservice를 통해 cache에 반영하는 구조로 구성되어 있으나 정상 동작하지 않음
