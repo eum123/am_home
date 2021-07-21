@@ -17,7 +17,7 @@ import com.am.homework.cache.repository.ProductRepository;
 @SpringBootTest
 @Sql(scripts = {"file:src/main/resources/product.sql"})
 @TestConstructor(autowireMode = TestConstructor.AutowireMode.ALL)
-public class ProductServiceTest {
+class ProductServiceTest {
 	@Autowired
 	private ProductRepository repository;
 	
@@ -26,7 +26,7 @@ public class ProductServiceTest {
 	
 	
 	@Test
-	public void getroductByProductIdTest() throws Exception {
+	void getroductByProductIdTest() throws Exception {
 		
 		Product cache = service.getProductByProductId(1L);
 		ProductEntity db = repository.findById(1L).get();
@@ -39,7 +39,7 @@ public class ProductServiceTest {
 	}
 	
 	@Test
-	public void getProductListByCategoryIdTest() throws Exception {
+	void getProductListByCategoryIdTest() throws Exception {
 		
 		List<Product> cacheList = service.getProductListByCategoryId(2);
 		List<ProductEntity> dbList = repository.findAllByCategoryNo(2);
@@ -65,7 +65,7 @@ public class ProductServiceTest {
 	}
 	
 	@Test
-	public void resetTest() throws Exception {
+	void resetTest() throws Exception {
 		ProductEntity entity = repository.findById(1L).get();
 		
 		Product preProduct = service.getProductByProductId(1L);

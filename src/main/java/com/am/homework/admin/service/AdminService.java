@@ -3,7 +3,7 @@ package com.am.homework.admin.service;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.am.homework.cache.common.ExternalInvokeException;
+import com.am.homework.admin.ExternalCommand;
 import com.am.homework.cache.entity.CategoryEntity;
 import com.am.homework.cache.entity.ProductEntity;
 import com.am.homework.cache.model.Category;
@@ -12,18 +12,15 @@ import com.am.homework.cache.repository.CategoryRepository;
 import com.am.homework.cache.repository.ProductRepository;
 import com.am.homework.cache.util.CategoryHelper;
 import com.am.homework.cache.util.ProductHelper;
+import com.am.homework.common.ExternalInvokeException;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-
-import java.util.Objects;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
 public class AdminService {
-
-	private static final String UPDATE = "UPDATE";
 
 	private final ExternalService externalService;
 
@@ -42,10 +39,10 @@ public class AdminService {
 		}
 
 		// sync cache
-		externalService.syncCategory(UPDATE, categoryNo);
+		externalService.syncCategory(ExternalCommand.UPDATE, categoryNo);
 
 		log.info("edit category : {}", categoryEntity);
-		return CategoryHelper.createByEntity(Objects.requireNonNull(categoryEntity));
+		return CategoryHelper.createByEntity(categoryEntity);
 	}
 	
 	@Transactional(rollbackFor = Exception.class)
@@ -58,10 +55,10 @@ public class AdminService {
 		}
 
 		// sync cache
-		externalService.syncCategory(UPDATE, categoryNo);
+		externalService.syncCategory(ExternalCommand.UPDATE, categoryNo);
 
 		log.info("edit category : {}", categoryEntity);
-		return CategoryHelper.createByEntity(Objects.requireNonNull(categoryEntity));
+		return CategoryHelper.createByEntity(categoryEntity);
 	}
 	
 
@@ -81,15 +78,17 @@ public class AdminService {
 			productRepository.save(productEntity);
 
 			// sync cache
-			externalService.syncProduct(UPDATE, productNo);
+			externalService.syncProduct(ExternalCommand.UPDATE, productNo);
 
 			log.info("edit product : {}", productEntity);
 			
 			return ProductHelper.createByEntity(productEntity);
-		}
+		} else {
 			
-		log.info("업데이트 할 수 없음");
-		return null;
+			log.info("업데이트 할 수 없음. : {}", product);
+			
+			return null;
+		}
 	}
 	
 	@Transactional(rollbackFor = Exception.class)
@@ -101,12 +100,14 @@ public class AdminService {
 			ProductEntity newEntity = ProductHelper.createByProduct(product);
 			productRepository.save(newEntity);
 			
-			log.info("insert product : {}", newEntity);
-			return ProductHelper.createByEntity(newEntity);
+			log.info("insert product : {}", productEntity);
+			
+			return ProductHelper.createByEntity(productEntity);
+		} else {
+			log.info("추가 할 수 없음. : {}", productEntity);
+			
+			return null;
 		}
-
-		log.info("추가 할 수 없음. : {}", productEntity);
-		return null;
 	}
 	
 	@Transactional(rollbackFor = Exception.class)
@@ -118,7 +119,7 @@ public class AdminService {
 			productRepository.delete(productEntity);
 
 			// sync cache
-			externalService.syncProduct("REMOVE", productNo);
+			externalService.syncProduct(ExternalCommand.DELETE, productNo);
 
 			log.info("remove product : {}", productEntity);
 			

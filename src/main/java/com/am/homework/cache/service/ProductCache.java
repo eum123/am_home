@@ -46,7 +46,7 @@ public class ProductCache {
 		}
 	}
 	
-	public List<Long> getProductNoList(int categoryNo) throws Exception {
+	public List<Long> getProductNoList(int categoryNo) throws InterruptedException {
 		lock.lock(); 
 		
 		try {

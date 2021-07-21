@@ -13,22 +13,22 @@ import java.nio.file.AccessDeniedException;
 public class ExceptionController {
     // 400
     @ExceptionHandler({ RuntimeException.class })
-    public ResponseEntity<Object> badRequestException(final RuntimeException ex) {
-        log.warn("error", ex);
+    public ResponseEntity<Object> BadRequestException(final RuntimeException ex) {
+        log.warn("Bad Request ", ex);
         return ResponseEntity.badRequest().body(ex.getMessage());
     }
 
     // 401
     @ExceptionHandler({ AccessDeniedException.class })
     public ResponseEntity handleAccessDeniedException(final AccessDeniedException ex) {
-        log.warn("error", ex);
+        log.warn("UNAUTHORIZED error", ex);
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(ex.getMessage());
     }
 
     // 500
     @ExceptionHandler({ Exception.class })
     public ResponseEntity<Object> handleAll(final Exception ex) {
-        log.error("error", ex);
+        log.error("INTERNAL_SERVER_ERROR error", ex);
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

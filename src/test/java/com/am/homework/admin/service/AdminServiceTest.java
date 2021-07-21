@@ -12,17 +12,17 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestConstructor;
 import org.springframework.test.context.jdbc.Sql;
 
-import com.am.homework.cache.common.ExternalInvokeException;
 import com.am.homework.cache.entity.CategoryEntity;
 import com.am.homework.cache.entity.ProductEntity;
 import com.am.homework.cache.model.Product;
 import com.am.homework.cache.repository.CategoryRepository;
 import com.am.homework.cache.repository.ProductRepository;
+import com.am.homework.common.ExternalInvokeException;
 
 @SpringBootTest
 @Sql(scripts = {"file:src/main/resources/product.sql", "file:src/main/resources/category.sql"})
 @TestConstructor(autowireMode = TestConstructor.AutowireMode.ALL)
-public class AdminServiceTest {
+class AdminServiceTest {
 	@Autowired
 	private ProductRepository productRepository;
 	
@@ -33,7 +33,7 @@ public class AdminServiceTest {
 	private AdminService service;
 	
 	@Test
-	public void updateCategoryTest() throws ExternalInvokeException {
+	void updateCategoryTest() throws ExternalInvokeException {
 		
 		CategoryEntity entity = categoryRepository.findById(1).get();
 		
@@ -45,7 +45,7 @@ public class AdminServiceTest {
 	}
 	
 	@Test
-	public void removeProductTest( ) throws ExternalInvokeException {
+	void removeProductTest( ) throws ExternalInvokeException {
 		
 		int totalCount = (int)productRepository.count();
 		
@@ -58,7 +58,7 @@ public class AdminServiceTest {
 	}
 	
 	@Test
-	public void updateProductPriceTest( ) throws ExternalInvokeException {
+	void updateProductPriceTest( ) throws ExternalInvokeException {
 		
 		ProductEntity entity = productRepository.findById(2L).orElse(null);
 		
@@ -79,7 +79,7 @@ public class AdminServiceTest {
 	}
 	
 	@Test
-	public void updateProductNameTest( ) throws ExternalInvokeException {
+	void updateProductNameTest( ) throws ExternalInvokeException {
 		
 		ProductEntity entity = productRepository.findById(2L).orElse(null);
 		

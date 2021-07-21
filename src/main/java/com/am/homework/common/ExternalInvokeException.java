@@ -1,4 +1,4 @@
-package com.am.homework.cache.common;
+package com.am.homework.common;
 
 public class ExternalInvokeException extends Exception {
 	/**

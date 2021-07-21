@@ -9,6 +9,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ProductHelper {
 	public static Product createByEntity(ProductEntity entity) {
+		
+		if(entity == null) {
+			return null;
+		}
 
 		return Product.builder()
 				.brandName(entity.getBrandName())
@@ -20,6 +24,10 @@ public class ProductHelper {
 	}
 	
 	public static ProductEntity createByProduct(Product product) {
+		
+		if(product == null) {
+			return null;
+		}
 
 		return ProductEntity.builder()
 				.brandName(product.getBrandName())

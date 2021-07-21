@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.am.homework.cache.model.Category;
 import com.am.homework.cache.repository.CategoryRepository;
 import com.am.homework.cache.util.CategoryHelper;
+import com.am.homework.common.RuntimeCacheUpdateException;
 
 import lombok.RequiredArgsConstructor;
 
@@ -51,7 +52,7 @@ public class CategoryService implements ApplicationListener<ContextRefreshedEven
 			try {
 				this.categoryCache.setCache(CategoryHelper.createByEntity(t));
 			} catch (Exception e) {
-				throw new RuntimeException(e);
+				throw new RuntimeCacheUpdateException(e);
 			}
 		});
 	}

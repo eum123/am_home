@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.am.homework.cache.common.CategoryDepth;
 import com.am.homework.cache.model.Category;
+import com.am.homework.common.CacheException;
 
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -21,15 +22,15 @@ public class CategoryCache {
 	 * category 저장 
 	 * @param entity
 	 */
-	public void setCache(Category entity) throws Exception {
+	public void setCache(Category entity) throws CacheException {
 		
 		log.debug("add category : {}", entity);
 		
-		if(CategoryDepth.FIRST.equals(entity.getDepth())) {
+		if(CategoryDepth.FIRST.getCode() == entity.getDepth()) {
 			//first depth
 			if(cache.containsKey(entity.getCategoryNo())) {
 				//duplicate
-				throw new Exception("데이터 저장 오류 : category_no 가 중복(" + entity.getCategoryNo() + ")");
+				throw new CacheException("데이터 저장 오류 : category_no 가 중복(" + entity.getCategoryNo() + ")");
 			} else {
 				cache.put(entity.getCategoryNo(), entity);
 			}
@@ -43,7 +44,7 @@ public class CategoryCache {
 				category.add(entity);
 			} else {
 				//error
-				throw new Exception("데이터 저장 오류 : parent_no의 category 가 없어 sub category를 저장할수 없음.");
+				throw new CacheException("데이터 저장 오류 : parent_no의 category 가 없어 sub category를 저장할수 없음.");
 			}
 		}
 	}

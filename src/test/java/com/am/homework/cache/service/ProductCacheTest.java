@@ -9,10 +9,10 @@ import org.junit.jupiter.api.Test;
 
 import com.am.homework.cache.model.Product;
 
-public class ProductCacheTest {
+class ProductCacheTest {
 	
 	@Test
-	public void getProductTest() throws InterruptedException  {
+	void getProductTest() throws InterruptedException  {
 		ProductCache cache = new ProductCache();
 		
 		for(int i = 0; i <1000; i++) {
@@ -40,7 +40,7 @@ public class ProductCacheTest {
 	}
 	
 	@Test
-	public void limitTest() {
+	void limitTest() {
 		ProductCache cache = new ProductCache();
 		
 		for(int i = 0; i <1000; i++) {
@@ -64,7 +64,7 @@ public class ProductCacheTest {
 	}
 
 	@Test
-	public void evictionTest() throws InterruptedException {
+	void evictionTest() throws InterruptedException {
 		ProductCache cache = new ProductCache();
 		
 		for(int i = 0; i <1000; i++) {
