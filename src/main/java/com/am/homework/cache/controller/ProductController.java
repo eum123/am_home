@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.am.homework.cache.model.Product;
 import com.am.homework.cache.service.ProductService;
+import com.am.homework.common.CacheException;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -57,7 +58,8 @@ public class ProductController {
 	@Nullable
 	@ApiOperation(value = "특정 카테고리에 속한 상품 전체 조회")
 	@GetMapping(value = "category/{cartegoryNo}")
-	public ResponseEntity<List<Product>> getProductList(@PathVariable("cartegoryNo") int categoryNo) throws Exception {
+	public ResponseEntity<List<Product>> getProductList(@PathVariable("cartegoryNo") int categoryNo)
+			throws CacheException {
 
 		List<Product> list = service.getProductListByCategoryId(categoryNo);
 		if (list == null || list.size() == 0) {

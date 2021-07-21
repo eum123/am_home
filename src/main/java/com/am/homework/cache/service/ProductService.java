@@ -12,6 +12,7 @@ import com.am.homework.cache.entity.ProductEntity;
 import com.am.homework.cache.model.Product;
 import com.am.homework.cache.repository.ProductRepository;
 import com.am.homework.cache.util.ProductHelper;
+import com.am.homework.common.CacheException;
 import com.am.homework.common.RuntimeServiceException;
 
 import lombok.RequiredArgsConstructor;
@@ -60,21 +61,25 @@ public class ProductService implements ApplicationListener<ContextRefreshedEvent
      * @return
      * @throws Exception
      */
-    public List<Product> getProductListByCategoryId(int categoryNo) throws InterruptedException {
+    public List<Product> getProductListByCategoryId(int categoryNo) throws CacheException {
     	List<Product> list = new ArrayList<>();
 		
-		productCache.getProductNoList(categoryNo).forEach(x -> {
-			try {
-				if(getProductByProductId(x) != null) {
-					list.add(getProductByProductId(x));
+    	try {
+			productCache.getProductNoList(categoryNo).forEach(x -> {
+				try {
+					if(getProductByProductId(x) != null) {
+						list.add(getProductByProductId(x));
+					}
+					
+				} catch (InterruptedException e) {
+					throw new RuntimeServiceException(e);
 				}
-				
-			} catch (InterruptedException e) {
-				throw new RuntimeServiceException(e);
-			}
-		});
+			});
 		
-		return list;
+			return list;
+    	} catch (InterruptedException e) {
+    		throw new CacheException(e);
+    	}
     }
     
     /**
