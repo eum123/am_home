@@ -13,7 +13,7 @@ import java.nio.file.AccessDeniedException;
 public class ExceptionController {
     // 400
     @ExceptionHandler({ RuntimeException.class })
-    public ResponseEntity<Object> BadRequestException(final RuntimeException ex) {
+    public ResponseEntity<Object> badRequestException(final RuntimeException ex) {
         log.warn("error", ex);
         return ResponseEntity.badRequest().body(ex.getMessage());
     }

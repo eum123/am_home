@@ -1,26 +1,18 @@
 package com.am.homework.cache.controller;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.lang.Nullable;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.am.homework.admin.service.AdminService;
 import com.am.homework.cache.model.Product;
 import com.am.homework.cache.service.ProductService;
-
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.lang.Nullable;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @Api("Product API")
@@ -52,14 +44,14 @@ public class ProductController {
 	/**
 	 * 특정 카테고리에 속한 상품 전체 조회
 	 * 
-	 * @param categoryId
+	 * @param categoryNo
 	 * @return
 	 */
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Success", response = Product.class) })
 	@Nullable
 	@ApiOperation(value = "특정 카테고리에 속한 상품 전체 조회")
-	@GetMapping(value = "category/{cartegoryNo}")
-	public ResponseEntity<List<Product>> getProductList(@PathVariable("cartegoryNo") int categoryNo) throws Exception {
+	@GetMapping(value = "category/{categoryNo}")
+	public ResponseEntity<List<Product>> getProductList(@PathVariable("categoryNo") int categoryNo) throws Exception {
 
 		List<Product> list = service.getProductListByCategoryId(categoryNo);
 		if (list == null || list.size() == 0) {
@@ -68,12 +60,11 @@ public class ProductController {
 
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
-	
+
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Success", response = Product.class) })
 	@ApiOperation(value = "상품 정보를 update.")
-	@PatchMapping(value = "update/{productNo}")
-	public ResponseEntity<Product> updateProduct(@PathVariable("productNo") long productNo) throws Exception {
-
-		return new ResponseEntity<Product>(service.updateProduct(productNo), HttpStatus.OK);
+	@PatchMapping(value = "/{productNo}")
+	public ResponseEntity<Product> updateProduct(@PathVariable("productNo") long productNo) {
+		return new ResponseEntity<>(service.updateProduct(productNo), HttpStatus.OK);
 	}
 }

@@ -20,7 +20,7 @@ public class ProductCache {
 	private Condition condition = lock.newCondition();
 	private boolean isUpdate = false;
 	
-	private LRUCache<Product> cache = new LRUCache<Product>(1000);
+	private LRUCache<Product> cache = new LRUCache<>(1000);
 	//카테고리별 product_no
 	private Map<Integer, List<Long>> categoryGroup = new HashMap<>();
 	
@@ -36,7 +36,7 @@ public class ProductCache {
 		lock.lock(); 
 		
 		try {
-			if(isUpdate) {
+			if (isUpdate) {
 				condition.await(1000, TimeUnit.SECONDS);
 			}
 			
@@ -50,7 +50,7 @@ public class ProductCache {
 		lock.lock(); 
 		
 		try {
-			if(isUpdate) {
+			if (isUpdate) {
 				condition.await(1000, TimeUnit.SECONDS);
 			}
 			
@@ -107,7 +107,7 @@ public class ProductCache {
         	
         	//카테고리별 product_no 저장.
         	if(!categoryGroup.containsKey(product.getCategoryNo())) {
-        		categoryGroup.put(product.getCategoryNo(), new ArrayList<Long>());
+        		categoryGroup.put(product.getCategoryNo(), new ArrayList<>());
         	} 
         	categoryGroup.get(product.getCategoryNo()).add(product.getProductNo());
 			
@@ -132,7 +132,7 @@ public class ProductCache {
         	log.debug("reset ProductCache");
         	
         	categoryGroup.clear();
-        	cache = new LRUCache<Product>(1000);
+        	cache = new LRUCache<>(1000);
 			
         } finally {
         	isUpdate = false;

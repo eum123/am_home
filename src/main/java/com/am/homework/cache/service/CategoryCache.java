@@ -46,8 +46,6 @@ public class CategoryCache {
 				throw new Exception("데이터 저장 오류 : parent_no의 category 가 없어 sub category를 저장할수 없음.");
 			}
 		}
-		
-		
 	}
 	
 	public void reset() {

@@ -16,10 +16,14 @@ import com.am.homework.cache.util.ProductHelper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.Objects;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
 public class AdminService {
+
+	private static final String UPDATE = "UPDATE";
 
 	private final ExternalService externalService;
 
@@ -38,10 +42,10 @@ public class AdminService {
 		}
 
 		// sync cache
-		externalService.syncCategory("UPDATE", categoryNo);
+		externalService.syncCategory(UPDATE, categoryNo);
 
 		log.info("edit category : {}", categoryEntity);
-		return CategoryHelper.createByEntity(categoryEntity);
+		return CategoryHelper.createByEntity(Objects.requireNonNull(categoryEntity));
 	}
 	
 	@Transactional(rollbackFor = Exception.class)
@@ -54,10 +58,10 @@ public class AdminService {
 		}
 
 		// sync cache
-		externalService.syncCategory("UPDATE", categoryNo);
+		externalService.syncCategory(UPDATE, categoryNo);
 
 		log.info("edit category : {}", categoryEntity);
-		return CategoryHelper.createByEntity(categoryEntity);
+		return CategoryHelper.createByEntity(Objects.requireNonNull(categoryEntity));
 	}
 	
 
@@ -77,21 +81,19 @@ public class AdminService {
 			productRepository.save(productEntity);
 
 			// sync cache
-			externalService.syncProduct("UPDATE", productNo);
+			externalService.syncProduct(UPDATE, productNo);
 
 			log.info("edit product : {}", productEntity);
 			
 			return ProductHelper.createByEntity(productEntity);
-		} else {
-			
-			log.info("업데이트 할 수 없음. : {}", productEntity);
-			
-			return null;
 		}
+			
+		log.info("업데이트 할 수 없음");
+		return null;
 	}
 	
 	@Transactional(rollbackFor = Exception.class)
-	public Product insertProduct(long productNo, Product product) throws ExternalInvokeException {
+	public Product insertProduct(long productNo, Product product) {
 		ProductEntity productEntity = productRepository.findById(productNo).orElse(null);
 
 		if (productEntity == null) {
@@ -99,14 +101,12 @@ public class AdminService {
 			ProductEntity newEntity = ProductHelper.createByProduct(product);
 			productRepository.save(newEntity);
 			
-			log.info("insert product : {}", productEntity);
-			
-			return ProductHelper.createByEntity(productEntity);
-		} else {
-			log.info("추가 할 수 없음. : {}", productEntity);
-			
-			return null;
+			log.info("insert product : {}", newEntity);
+			return ProductHelper.createByEntity(newEntity);
 		}
+
+		log.info("추가 할 수 없음. : {}", productEntity);
+		return null;
 	}
 	
 	@Transactional(rollbackFor = Exception.class)
