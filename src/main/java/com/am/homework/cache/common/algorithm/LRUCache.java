@@ -15,16 +15,16 @@ import java.util.Map;
 public class LRUCache<T> {
 
 	
-	private Map<Long, ListNode> nodeMap;
+	private Map<Long, ListNode<T>> nodeMap;
 
 	private int capacity;
 
-	private ListNode head;
+	private ListNode<T> head;
 
-	private ListNode tail;
+	private ListNode<T> tail;
 	
 	public LRUCache(int capacity) {
-		this.nodeMap = new HashMap();
+		this.nodeMap = new HashMap<>();
 		this.capacity = capacity;
 		head = new ListNode(0, 0);
 		tail = new ListNode(0, 0);
@@ -32,14 +32,14 @@ public class LRUCache<T> {
 		tail.prev = head;
 	}
 
-	private void remove(ListNode node) {
+	private void remove(ListNode<T> node) {
 		node.prev.next = node.next;
 		node.next.prev = node.prev;
 		nodeMap.remove(node.key);
 		
 	}
 
-	private void insertToHead(ListNode node) {
+	private void insertToHead(ListNode<T> node) {
 		this.head.next.prev = node;
 		node.next = this.head.next;
 		node.prev = this.head;
@@ -61,22 +61,22 @@ public class LRUCache<T> {
 		}
 		
 		//데이터에 존재하는 키 호출 시, 가장 최근 사용 데이터로 (head) 옮기기 위해 기존 공간 remove
-		ListNode node = nodeMap.get(key); 
+		ListNode<T> node = nodeMap.get(key); 
 		remove(node);
 		insertToHead(node);
-		return (T)node.val;
+		return node.val;
 	}
 
 	public void put(long key, T value) {
-		ListNode newNode = new ListNode(key, value);
+		ListNode<T> newNode = new ListNode<>(key, value);
 		if (nodeMap.containsKey(key)) { 
 			//메모리에 존재하는 키 수정 시, 가장 최근 사용 데이터로 (head) 옮기기 위해 기존 공간 remove
-			ListNode oldNode = nodeMap.get(key);
+			ListNode<T> oldNode = nodeMap.get(key);
 			remove(oldNode);
 		} else {
 			if (nodeMap.size() >= capacity) { 
 				//메모리 제한에 도달 시, 최근에 가장 덜 사용된 키의 공간(tail) remove
-				ListNode tailNode = tail.prev;
+				ListNode<T> tailNode = tail.prev;
 				remove(tailNode);
 			}
 		}
@@ -86,8 +86,8 @@ public class LRUCache<T> {
 	private class ListNode<T> {
 		private long key;
 		private T val;
-		private ListNode prev;
-		private ListNode next;
+		private ListNode<T> prev;
+		private ListNode<T> next;
 
 		public ListNode(long key, T val) {
 			this.key = key;
