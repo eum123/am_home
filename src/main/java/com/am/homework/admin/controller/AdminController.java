@@ -24,6 +24,7 @@ import lombok.RequiredArgsConstructor;
 
 /**
  * 관리용.
+ * 
  * @author a28097823
  *
  */
@@ -74,7 +75,7 @@ public class AdminController {
 
 		return new ResponseEntity<>(updatedProduct, HttpStatus.OK);
 	}
-	
+
 	/**
 	 * 상품삭제.
 	 *
@@ -94,7 +95,7 @@ public class AdminController {
 
 		return new ResponseEntity<>(updatedProduct, HttpStatus.OK);
 	}
-	
+
 	/**
 	 * 상품추가.
 	 *
@@ -104,8 +105,8 @@ public class AdminController {
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Success") })
 	@ApiOperation(value = "상품 추가.")
 	@PutMapping(value = "/product/add/{productNo}", produces = { MediaType.APPLICATION_JSON_VALUE })
-	public ResponseEntity<Product> insertProduct(@PathVariable("productNo") int productNo, @RequestBody Product product)
-			{
+	public ResponseEntity<Product> insertProduct(@PathVariable("productNo") int productNo,
+			@RequestBody Product product) {
 
 		Product updatedProduct = service.insertProduct(productNo, product);
 		if (updatedProduct == null) {
