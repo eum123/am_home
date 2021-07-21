@@ -12,6 +12,7 @@ import com.am.homework.cache.entity.ProductEntity;
 import com.am.homework.cache.model.Product;
 import com.am.homework.cache.repository.ProductRepository;
 import com.am.homework.cache.util.ProductHelper;
+import com.am.homework.common.RuntimeServiceException;
 
 import lombok.RequiredArgsConstructor;
 
@@ -59,7 +60,7 @@ public class ProductService implements ApplicationListener<ContextRefreshedEvent
      * @return
      * @throws Exception
      */
-    public List<Product> getProductListByCategoryId(int categoryNo) throws Exception {
+    public List<Product> getProductListByCategoryId(int categoryNo) throws InterruptedException {
     	List<Product> list = new ArrayList<>();
 		
 		productCache.getProductNoList(categoryNo).forEach(x -> {
@@ -68,8 +69,8 @@ public class ProductService implements ApplicationListener<ContextRefreshedEvent
 					list.add(getProductByProductId(x));
 				}
 				
-			} catch (Exception e) {
-				throw new RuntimeException(e);
+			} catch (InterruptedException e) {
+				throw new RuntimeServiceException(e);
 			}
 		});
 		

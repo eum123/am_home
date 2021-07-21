@@ -105,7 +105,7 @@ public class AdminController {
 	@ApiOperation(value = "상품 추가.")
 	@PutMapping(value = "/product/add/{productNo}", produces = { MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<Product> insertProduct(@PathVariable("productNo") int productNo, @RequestBody Product product)
-			throws ExternalInvokeException {
+			{
 
 		Product updatedProduct = service.insertProduct(productNo, product);
 		if (updatedProduct == null) {

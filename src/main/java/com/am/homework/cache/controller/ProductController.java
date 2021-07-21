@@ -66,11 +66,11 @@ public class ProductController {
 
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
-	
+
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Success", response = Product.class) })
 	@ApiOperation(value = "상품 정보를 update.")
 	@PatchMapping(value = "update/{productNo}")
-	public ResponseEntity<Product> updateProduct(@PathVariable("productNo") long productNo) throws Exception {
+	public ResponseEntity<Product> updateProduct(@PathVariable("productNo") long productNo) {
 
 		return new ResponseEntity<Product>(service.updateProduct(productNo), HttpStatus.OK);
 	}
