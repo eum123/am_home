@@ -10,6 +10,11 @@ import com.am.homework.common.CacheException;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * Composit Patter 적용필요.
+ * @author a28097823
+ *
+ */
 @Slf4j
 public class CategoryCache {
 	
